@@ -13,11 +13,7 @@
     window.onload = function() {
       // Begin Swagger UI call setup
       const ui = SwaggerUIBundle({
-        urls: [
-        { url: "https://shubh99k.github.io/firstvisionEMEA/prod.yaml", name: "1" },
-        { url: "https://shubh99k.github.io/firstvisionEMEA/prod2.yaml", name: "2" },
-        // Add more URLs as needed
-      ],
+        url: "https://shubh99k.github.io/firstvisionEMEA/prod.yaml",
         dom_id: '#swagger-ui',
         presets: [
           SwaggerUIBundle.presets.apis,
