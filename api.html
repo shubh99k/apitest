@@ -1,38 +1,73 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>API Documentation</title>
     <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
-</head>
-<body>
+    <style>
+              .custom-logo {
+                  height: 60px;
+                  width: auto;
+                  margin: 10px;
+                  margin-left: 40px;
+              }
+              .dev-studio-link {
+                 position: fixed;
+                 top: 40px;
+                 right: 30px;
+                 font-size: 18px;
+                 text-decoration:none;
+                 color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <a
+      href="https://developer.fiserv.com/product/FirstVisionEMEA"
+      target="_blank"
+      class="dev-studio-link"
+      >Go to Developer Studio</a
+    >
+
     <div id="redoc-container"></div>
 
     <script>
-        // Function to load Redoc with a Swagger file
-        function loadRedoc(specUrl) {
-            Redoc.init(specUrl, {}, document.getElementById('redoc-container'));
+      // Function to load Redoc with a Swagger file
+      function loadRedoc(specUrl) {
+        Redoc.init(specUrl, {}, document.getElementById("redoc-container"));
+      }
+
+      // Parse the URL to get the file name
+      var urlParams = new URLSearchParams(window.location.search);
+      var swaggerFile = urlParams.get("file");
+
+      // Check if a specific Swagger file is specified in the URL
+      if (swaggerFile) {
+        var swaggerUrl = "https://shubh99k.github.io/firstvisionEMEA/" + swaggerFile;
+        loadRedoc(swaggerUrl);
+      } else {
+        // Array of Swagger file URLs
+        var swaggerFiles = ["https://shubh99k.github.io/firstvisionEMEA/prod.yaml","https://shubh99k.github.io/firstvisionEMEA/prod2.yaml"];
+
+        // Loop through the Swagger file URLs and load Redoc for each file
+        for (var i = 0; i < swaggerFiles.length; i++) {
+          loadRedoc(swaggerFiles[i]);
         }
-
-        // Parse the URL to get the file name
-        var urlParams = new URLSearchParams(window.location.search);
-        var swaggerFile = urlParams.get('file');
-
-        // Check if a specific Swagger file is specified in the URL
-        if (swaggerFile) {
-            var swaggerUrl = 'https://shubh99k.github.io/firstvisionEMEA/' + swaggerFile;
-            loadRedoc(swaggerUrl);
-        } else {
-            // Array of Swagger file URLs
-            var swaggerFiles = [
-                'https://shubh99k.github.io/firstvisionEMEA/prod.yaml',
-                'https://shubh99k.github.io/firstvisionEMEA/prod2.yaml'
-            ];
-
-            // Loop through the Swagger file URLs and load Redoc for each file
-            for (var i = 0; i < swaggerFiles.length; i++) {
-                loadRedoc(swaggerFiles[i]);
-            }
-        }
+      }
     </script>
-</body>
+    <script>
+      // Add your logo URL here
+      var logoUrl =
+        "https://www.fiserv.com/content/dam/fiserv-ent/final-files/digital-graphics/fiserv-com-graphics/fiserv-logo-orange-ff6600.svg";
+      // Create an image element for the logo
+      var logoImg = document.createElement("img");
+      logoImg.src = logoUrl;
+      logoImg.classList.add("custom-logo");
+
+      // Add the logo to the document
+      document.body.insertBefore(
+        logoImg,
+        document.getElementById("redoc-container")
+      );
+    </script>
+  </body>
 </html>
