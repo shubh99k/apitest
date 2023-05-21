@@ -69,5 +69,16 @@
         document.getElementById("redoc-container")
       );
     </script>
+    <script>
+     // Hide the button on scroll
+     var devStudioLink = document.querySelector('.dev-studio-link');
+     window.addEventListener('scroll', function() {
+         if (window.scrollY > 50) {
+             devStudioLink.classList.add('hidden');
+         } else {
+             devStudioLink.classList.remove('hidden');
+         }
+     });
+    </script>
   </body>
 </html>
