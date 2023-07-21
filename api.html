@@ -21,7 +21,7 @@
         .dev-studio-link.hidden {
             display: none;
         }
-        #rapidoc-container {
+        #swagger-ui {
             margin-top: 10px;
         }
     </style>
@@ -34,21 +34,25 @@
         class="dev-studio-link"
     >Home</a>
     
-    <div id="rapidoc-container"></div>
+    <div id="swagger-ui"></div>
 
-    <script src="https://unpkg.com/rapidoc@latest/dist/rapidoc-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.52.0/swagger-ui-bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.52.0/swagger-ui-standalone-preset.js"></script>
     <script>
-        // Function to load RapiDoc with a Swagger file
-        function loadRapiDoc(specUrl) {
-            var rapiDocEl = document.getElementById('rapidoc-container');
-            var rapiDoc = rapiDocEl.getElementsByTagName('rapi-doc')[0];
-            if (rapiDoc) {
-                rapiDoc.remove();
-            }
-            rapiDocEl.setAttribute('spec-url', specUrl);
-            rapiDocEl.setAttribute('schema-style', 'tree'); // You can adjust the style: tree, table, or read
-            var newRapiDoc = document.createElement('rapi-doc');
-            rapiDocEl.appendChild(newRapiDoc);
+        // Function to load Swagger UI with a Swagger file
+        function loadSwaggerUI(specUrl) {
+            const ui = SwaggerUIBundle({
+                url: specUrl,
+                dom_id: '#swagger-ui',
+                deepLinking: true,
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIStandalonePreset,
+                ],
+                layout: 'StandaloneLayout',
+                theme: 'swagger-ui-material', // Use 'swagger-ui' for the default theme
+            });
+            window.ui = ui;
         }
 
         // Parse the URL to get the file name
@@ -58,7 +62,7 @@
         // Check if a specific Swagger file is specified in the URL
         if (swaggerFile) {
             var swaggerUrl = 'https://shubh99k.github.io/apitest/' + swaggerFile;
-            loadRapiDoc(swaggerUrl);
+            loadSwaggerUI(swaggerUrl);
         } else {
             // Array of Swagger file URLs
             var swaggerFiles = [
@@ -71,9 +75,9 @@
                 'https://fiserv.github.io/firstvision-emea/assets/swagger/uat-in.yaml',
             ];
 
-            // Loop through the Swagger file URLs and load RapiDoc for each file
+            // Loop through the Swagger file URLs and load Swagger UI for each file
             for (var i = 0; i < swaggerFiles.length; i++) {
-                loadRapiDoc(swaggerFiles[i]);
+                loadSwaggerUI(swaggerFiles[i]);
             }
         }
     </script>
@@ -89,7 +93,7 @@
         // Add the logo to the document
         document.body.insertBefore(
             logoImg,
-            document.getElementById("rapidoc-container")
+            document.getElementById("swagger-ui")
         );
     </script>
     <script>
