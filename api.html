@@ -40,19 +40,15 @@
     <script>
         // Function to load RapiDoc with a Swagger file
         function loadRapiDoc(specUrl) {
-            const specObj = {
-                specUrl: specUrl,
-                displayRequestDuration: true,
-                sortPropsAlphabetically: true,
-                theme: {
-                    spacing: '20px',
-                    fontFamily: 'Arial, sans-serif',
-                    fontSize: '16px',
-                    maxWidth: '100%'
-                },
-            };
-            const rapiDocEl = document.getElementById('rapidoc-container');
-            new RapiDoc(specObj, rapiDocEl);
+            var rapiDocEl = document.getElementById('rapidoc-container');
+            var rapiDoc = rapiDocEl.getElementsByTagName('rapi-doc')[0];
+            if (rapiDoc) {
+                rapiDoc.remove();
+            }
+            rapiDocEl.setAttribute('spec-url', specUrl);
+            rapiDocEl.setAttribute('schema-style', 'tree'); // You can adjust the style: tree, table, or read
+            var newRapiDoc = document.createElement('rapi-doc');
+            rapiDocEl.appendChild(newRapiDoc);
         }
 
         // Parse the URL to get the file name
