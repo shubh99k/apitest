@@ -21,88 +21,27 @@
         .dev-studio-link.hidden {
             display: none;
         }
-        #swagger-ui {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        #swagger-ui .scheme-container {
-            flex: 1;
-            margin-right: 10px;
-            min-width: 300px;
-        }
-        #swagger-ui .samples-container {
-            flex: 1;
-            margin-left: 10px;
-            min-width: 300px;
-        }
-        /* Custom CSS for Swagger UI Material theme */
-        .swagger-ui .wrapper {
-            padding-top: 0;
-        }
-        .swagger-ui .scheme-container {
-            background-color: #f6f6f6;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            overflow-y: auto;
-            max-height: 80vh;
-        }
-        .swagger-ui .samples-container {
-            background-color: #f6f6f6;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            overflow-y: auto;
-            max-height: 80vh;
-        }
-        .swagger-ui .info .title {
-            font-size: 24px;
-        }
-        .swagger-ui .scheme-container .opblock-tag {
-            font-size: 20px;
-        }
-        .swagger-ui .opblock-description {
-            font-size: 16px;
-        }
-        .swagger-ui .opblock-summary {
-            font-size: 20px;
-        }
-        .swagger-ui .parameters-col_description {
-            font-size: 16px;
-        }
-        .swagger-ui .opblock-section-header {
-            font-size: 18px;
-        }
-        .swagger-ui .parameter__type {
-            font-size: 16px;
-        }
     </style>
 </head>
 <body>
     
-    <a
-        href="https://fiserv.github.io/firstvision-emea/"
-        target="_blank"
-        class="dev-studio-link"
-    >Home</a>
+    <a href="https://fiserv.github.io/firstvision-emea/" target="_blank" class="dev-studio-link">Home</a>
     
     <div id="swagger-ui"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.52.0/swagger-ui-bundle.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.52.0/swagger-ui-standalone-preset.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4.3.1/swagger-ui-bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4.3.1/swagger-ui-standalone-preset.js"></script>
+    <link rel="stylesheet" type="text/css" href="swagger-ui-themes/theme1/theme.css">
     <script>
         // Function to load Swagger UI with a Swagger file
         function loadSwaggerUI(specUrl) {
             const ui = SwaggerUIBundle({
-                url: specUrl,
+                spec: specUrl,
                 dom_id: '#swagger-ui',
                 deepLinking: true,
-                presets: [
-                    SwaggerUIBundle.presets.apis,
-                    SwaggerUIStandalonePreset,
-                ],
+                presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
                 layout: 'StandaloneLayout',
-                theme: 'swagger-ui-material', // Use 'swagger-ui' for the default theme
+                theme: 'theme1', // Replace 'theme1' with the chosen theme name
             });
             window.ui = ui;
         }
