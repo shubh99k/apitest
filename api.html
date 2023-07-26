@@ -2,7 +2,11 @@
 <html>
 <head>
     <title>API Documentation</title>
-    <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4.1.7/swagger-ui.css"
+    />
     <style>
         .custom-logo {
             height: 60px;
@@ -28,98 +32,58 @@
         body {
             margin: 0;
             padding: 0;
+            overflow: hidden;
             background-color: #1a1a1a;
         }
 
-        #redoc-container {
+        #swagger-ui {
             width: 100%;
-            height: calc(100vh - 70px); /* Adjust the height as needed */
-            overflow: hidden;
-        }
-
-        .hub-header,
-        .menu-content,
-        .menu-item,
-        .opblock,
-        .opblock-summary,
-        .opblock-description,
-        .model-title,
-        .model,
-        .type-model,
-        .type-object,
-        .response-col_status,
-        .example,
-        .response-col_description,
-        .error-wrapper,
-        .response-col.response-col_request,
-        .parameter__name,
-        .parameter__type,
-        .btn.try-out__btn,
-        .btn.cancel,
-        .cancelBtn,
-        .modal,
-        .modal-dialog-content,
-        .response-col,
-        .modal-x,
-        .modal-content,
-        .modal-header h1,
-        .api-content,
-        .opblock-tag,
-        .tab-header .tab-item,
-        .search-box,
-        .response-col .response-col_copied {
-            background-color: #2a2a2a;
-            color: #fff;
-        }
-
-        .response-col_status {
-            background-color: #333;
-        }
-
-        .opblock-summary {
-            background-color: #444;
-        }
-
-        .opblock-description,
-        .type-model,
-        .type-object,
-        .parameter__name,
-        .parameter__type {
-            color: #ccc;
-        }
-
-        .btn.try-out__btn,
-        .btn.cancel,
-        .cancelBtn,
-        .modal-x {
-            background-color: #444;
-        }
-
-        .dev-studio-link {
-            color: #fff;
+            height: 100vh;
         }
     </style>
 </head>
 <body>
 <a
-        href="https://developer.fiserv.com/product/FirstVisionEMEA"
-        target="_blank"
-        class="dev-studio-link"
-        >Go to Developer Studio</a
-    >
+    href="https://developer.fiserv.com/product/FirstVisionEMEA"
+    target="_blank"
+    class="dev-studio-link"
+    >Go to Developer Studio</a
+>
 
-<div id="redoc-container"></div>
+<div id="swagger-ui"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4.1.7/swagger-ui-bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4.1.7/swagger-ui-standalone-preset.js"></script>
 
 <script>
-    // Function to load Redoc with a Swagger file
-    function loadRedoc(specUrl) {
-        Redoc.init(specUrl, {
-            scrollYOffset: 50, // Adjust this value as per your requirement
-            hideDownloadButton: true, // Hide download button (optional)
-            hideLoading: true, // Hide loading spinner (optional)
-            expandResponses: 'all', // Expand all response sections by default (optional)
-            expandSingleSchemaField: true, // Expand only one schema field at a time (optional)
-        }, document.getElementById("redoc-container"));
+    // Function to load Swagger UI with a Swagger file
+    function loadSwaggerUI(specUrl) {
+        const ui = SwaggerUIBundle({
+            url: specUrl,
+            dom_id: '#swagger-ui',
+            deepLinking: true,
+            presets: [
+                SwaggerUIBundle.presets.apis,
+                SwaggerUIStandalonePreset
+            ],
+            layout: "StandaloneLayout",
+            theme: "dark",
+            docExpansion: "list",
+            showCommonExtensions: true,
+            showExtensions: true,
+            showCommonExtensions: true,
+            operationsSorter: "alpha",
+            tagsSorter: "alpha",
+            filter: true,
+            displayRequestDuration: true,
+            showExtensions: true,
+            showCommonExtensions: true,
+            docExpansion: "list",
+            displayOperationId: true,
+            deepLinking: true,
+            validatorUrl: null
+        });
+        window.ui = ui;
     }
 
     // Array of Swagger file URLs
@@ -128,9 +92,9 @@
         "https://shubh99k.github.io/apitest/prod2.yaml"
     ];
 
-    // Loop through the Swagger file URLs and load Redoc for each file
+    // Load Swagger UI for each file
     for (var i = 0; i < swaggerFiles.length; i++) {
-        loadRedoc(swaggerFiles[i]);
+        loadSwaggerUI(swaggerFiles[i]);
     }
 </script>
 <script>
@@ -145,7 +109,7 @@
     // Add the logo to the document
     document.body.insertBefore(
         logoImg,
-        document.getElementById("redoc-container")
+        document.getElementById("swagger-ui")
     );
 </script>
 <script>
