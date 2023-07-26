@@ -17,7 +17,8 @@
             right: 30px;
             font-size: 18px;
             text-decoration: none;
-            color: #000;
+            color: #fff;
+            z-index: 1;
         }
 
         .dev-studio-link.hidden {
@@ -26,12 +27,46 @@
 
         /* Dark theme styles */
         body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
             background-color: #1a1a1a;
         }
 
         #redoc-container {
             width: 100%;
             height: calc(100vh - 70px); /* Adjust the height as needed */
+            overflow: hidden;
+        }
+
+        /* Add other dark theme styles as needed */
+        .hub-header, .menu-content, .menu-item, .opblock, .opblock-summary, .opblock-description, .model-title, .model,
+        .type-model, .type-object, .response-col_status, .example, .response-col_description, .error-wrapper,
+        .response-col.response-col_request, .parameter__name, .parameter__type, .btn.try-out__btn, .btn.cancel,
+        .cancelBtn, .modal, .modal-dialog-content, .response-col, .modal-x, .modal-content, .modal-header h1,
+        .api-content, .opblock-tag, .tab-header .tab-item, .search-box, .response-col .response-col_copied {
+            background-color: #2a2a2a;
+            color: #fff;
+        }
+
+        .response-col_status {
+            background-color: #333;
+        }
+
+        .opblock-summary {
+            background-color: #444;
+        }
+
+        .opblock-description, .type-model, .type-object, .parameter__name, .parameter__type {
+            color: #ccc;
+        }
+
+        .btn.try-out__btn, .btn.cancel, .cancelBtn, .modal-x {
+            background-color: #444;
+        }
+
+        .dev-studio-link {
+            color: #fff;
         }
     </style>
 </head>
