@@ -23,6 +23,16 @@
         .dev-studio-link.hidden {
             display: none;
         }
+
+        /* Dark theme styles */
+        body {
+            background-color: #1a1a1a;
+        }
+
+        #redoc-container {
+            width: 100%;
+            height: calc(100vh - 70px); /* Adjust the height as needed */
+        }
     </style>
 </head>
 <body>
@@ -40,42 +50,22 @@
     function loadRedoc(specUrl) {
         Redoc.init(specUrl, {
             scrollYOffset: 50, // Adjust this value as per your requirement
-            search: false, // Disable default search behavior
             hideDownloadButton: true, // Hide download button (optional)
             hideLoading: true, // Hide loading spinner (optional)
             expandResponses: 'all', // Expand all response sections by default (optional)
             expandSingleSchemaField: true, // Expand only one schema field at a time (optional)
-            // Add custom search behavior
-            plugins: [
-                Redoc.Plugin.SearchComponent({
-                    searchByTitle: true, // Enable search by title
-                    searchByDescription: true, // Enable search by description
-                    searchQueryParam: 'search', // Custom query parameter for search
-                    highlightSearchTermsOnLoad: true // Highlight search terms on page load
-                })
-            ]
         }, document.getElementById("redoc-container"));
     }
 
-    // Parse the URL to get the file name
-    var urlParams = new URLSearchParams(window.location.search);
-    var swaggerFile = urlParams.get("file");
+    // Array of Swagger file URLs
+    var swaggerFiles = [
+        "https://shubh99k.github.io/apitest/prod.yaml",
+        "https://shubh99k.github.io/apitest/prod2.yaml"
+    ];
 
-    // Check if a specific Swagger file is specified in the URL
-    if (swaggerFile) {
-        var swaggerUrl = "https://shubh99k.github.io/apitest/" + swaggerFile;
-        loadRedoc(swaggerUrl);
-    } else {
-        // Array of Swagger file URLs
-        var swaggerFiles = [
-            "https://shubh99k.github.io/apitest/prod.yaml",
-            "https://shubh99k.github.io/apitest/prod2.yaml"
-        ];
-
-        // Loop through the Swagger file URLs and load Redoc for each file
-        for (var i = 0; i < swaggerFiles.length; i++) {
-            loadRedoc(swaggerFiles[i]);
-        }
+    // Loop through the Swagger file URLs and load Redoc for each file
+    for (var i = 0; i < swaggerFiles.length; i++) {
+        loadRedoc(swaggerFiles[i]);
     }
 </script>
 <script>
