@@ -2,9 +2,7 @@
 <html>
 <head>
     <title>API Documentation</title>
-    <!-- Replace Redoc CDN with Swagger UI CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4.1.7/swagger-ui-bundle.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4.1.7/swagger-ui-standalone-preset.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
     <style>
         .custom-logo {
             height: 60px;
@@ -26,27 +24,6 @@
             display: none;
         }
     </style>
-    <!-- Add a dark theme CSS -->
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: #1a1a1a;
-        }
-
-        #swagger-ui {
-            width: 100%;
-            height: 100%;
-        }
-    </style>
 </head>
 <body>
 <a
@@ -56,25 +33,28 @@
         >Go to Developer Studio</a
     >
 
-<div id="swagger-ui"></div>
+<div id="redoc-container"></div>
 
 <script>
-    // Function to load Swagger UI with a Swagger file
-    function loadSwaggerUI(specUrl) {
-        const ui = SwaggerUIBundle({
-            url: specUrl,
-            dom_id: '#swagger-ui',
-            deepLinking: true,
-            presets: [
-                SwaggerUIBundle.presets.apis,
-                SwaggerUIStandalonePreset
-            ],
+    // Function to load Redoc with a Swagger file
+    function loadRedoc(specUrl) {
+        Redoc.init(specUrl, {
+            scrollYOffset: 50, // Adjust this value as per your requirement
+            search: false, // Disable default search behavior
+            hideDownloadButton: true, // Hide download button (optional)
+            hideLoading: true, // Hide loading spinner (optional)
+            expandResponses: 'all', // Expand all response sections by default (optional)
+            expandSingleSchemaField: true, // Expand only one schema field at a time (optional)
+            // Add custom search behavior
             plugins: [
-                SwaggerUIBundle.plugins.DownloadUrl
-            ],
-            layout: "StandaloneLayout"
-        });
-        window.ui = ui;
+                Redoc.Plugin.SearchComponent({
+                    searchByTitle: true, // Enable search by title
+                    searchByDescription: true, // Enable search by description
+                    searchQueryParam: 'search', // Custom query parameter for search
+                    highlightSearchTermsOnLoad: true // Highlight search terms on page load
+                })
+            ]
+        }, document.getElementById("redoc-container"));
     }
 
     // Parse the URL to get the file name
@@ -84,7 +64,7 @@
     // Check if a specific Swagger file is specified in the URL
     if (swaggerFile) {
         var swaggerUrl = "https://shubh99k.github.io/apitest/" + swaggerFile;
-        loadSwaggerUI(swaggerUrl);
+        loadRedoc(swaggerUrl);
     } else {
         // Array of Swagger file URLs
         var swaggerFiles = [
@@ -92,9 +72,9 @@
             "https://shubh99k.github.io/apitest/prod2.yaml"
         ];
 
-        // Loop through the Swagger file URLs and load Swagger UI for each file
+        // Loop through the Swagger file URLs and load Redoc for each file
         for (var i = 0; i < swaggerFiles.length; i++) {
-            loadSwaggerUI(swaggerFiles[i]);
+            loadRedoc(swaggerFiles[i]);
         }
     }
 </script>
@@ -110,7 +90,7 @@
     // Add the logo to the document
     document.body.insertBefore(
         logoImg,
-        document.getElementById("swagger-ui")
+        document.getElementById("redoc-container")
     );
 </script>
 <script>
