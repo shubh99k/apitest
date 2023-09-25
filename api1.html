@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Explorer</title>
+    <link rel="icon" type="image/x-icon" href="https://www.fiserv.com/content/dam/fiserv-com/favicon-med.ico">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            background-color: #f5f5f5;
+        }
+
+        #category-panel {
+            flex: 1;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        #swagger-ui-container {
+            flex: 2;
+            overflow: hidden;
+        }
+
+        #sample-payload-panel {
+            flex: 1;
+            background-color: #fff;
+            color: #333;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .toggle-theme-button {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="category-panel">
+    <!-- Categories content goes here -->
+    <h2>Categories</h2>
+    <ul>
+        <li><a href="#category1">Category 1</a></li>
+        <li><a href="#category2">Category 2</a></li>
+        <!-- Add more categories as needed -->
+    </ul>
+</div>
+
+<div id="swagger-ui-container">
+    <div id="swagger-ui"></div>
+</div>
+
+<div id="sample-payload-panel">
+    <!-- Sample payload content goes here -->
+    <h2>Sample Payloads</h2>
+    <div id="sample-payloads">
+        <!-- Sample payload content goes here -->
+    </div>
+</div>
+
+<button class="toggle-theme-button" onclick="toggleTheme()">Toggle Theme</button>
+
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.52.0/swagger-ui-bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.52.0/swagger-ui-standalone-preset.js"></script>
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.52.0/swagger-ui.css"
+/>
+
+<script>
+    // Function to load Swagger UI with a Swagger file
+    function loadSwaggerUI(specUrl) {
+        const ui = SwaggerUIBundle({
+            url: specUrl,
+            dom_id: '#swagger-ui',
+            presets: [
+                SwaggerUIBundle.presets.apis,
+                SwaggerUIStandalonePreset
+            ],
+            layout: "BaseLayout",
+            deepLinking: true,
+            displayRequestDuration: true,
+        });
+    }
+
+    // Array of Swagger file URLs
+    var swaggerFiles = [
+        "https://shubh99k.github.io/apitest/prod.yaml",
+        "https://shubh99k.github.io/apitest/prod2.yaml"
+    ];
+
+    // Load Swagger UI for each file
+    for (var i = 0; i < swaggerFiles.length; i++) {
+        loadSwaggerUI(swaggerFiles[i]);
+    }
+
+    // Toggle dark and light themes
+    function toggleTheme() {
+        var body = document.body;
+        if (body.classList.contains("dark-theme")) {
+            body.classList.remove("dark-theme");
+        } else {
+            body.classList.add("dark-theme");
+        }
+    }
+</script>
+</body>
+</html>
