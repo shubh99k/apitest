@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #documentation {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<div id="documentation"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/js-yaml/dist/js-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    // Get the YAML file name from the URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const yamlFileName = urlParams.get('yaml');
+
+    if (yamlFileName) {
+        // Fetch YAML file
+        const yamlFilePath = `assets/swagger/${yamlFileName}.yaml`;
+        fetch(yamlFilePath)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch YAML file: ${response.statusText}`);
+                }
+                return response.text();
+            })
+            .then(yaml => {
+                // Parse YAML to JSON
+                const json = jsyaml.load(yaml);
+
+                // Convert JSON to HTML
+                const html = convertJsonToHtml(json);
+
+                // Render HTML
+                document.getElementById('documentation').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error fetching or parsing YAML:', error);
+                document.getElementById('documentation').innerHTML = '<p>Error loading YAML file.</p>';
+            });
+    } else {
+        document.getElementById('documentation').innerHTML = '<p>No YAML file specified in the URL.</p>';
+    }
+
+    // Function to convert JSON to HTML
+    function convertJsonToHtml(json) {
+        let html = '';
+
+        // Assuming your YAML has a structure with sections and content
+        for (const section in json) {
+            if (json.hasOwnProperty(section)) {
+                html += `<h2>${section}</h2>`;
+                html += '<ul>';
+
+                // Assuming each section has an array of content items
+                json[section].forEach(item => {
+                    html += '<li>';
+                    html += `<h3>${item.title}</h3>`;
+
+                    // Assuming content can be Markdown
+                    html += marked(item.content || '');
+
+                    html += '</li>';
+                });
+
+                html += '</ul>';
+            }
+        }
+
+        return html;
+    }
+</script>
+
+</body>
+</html>
