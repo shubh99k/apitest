@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Documentation</title>
+    <link rel="icon" type="image/x-icon" href="https://www.fiserv.com/content/dam/fiserv-com/favicon-med.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/redoc@2.0.0-alpha.12/dist/redoc.min.css" />
+</head>
+<body>
+
+<div id="redoc-container"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/redoc@2.0.0-alpha.12/dist/redoc.standalone.js"></script>
+<script>
+    var urlParams = new URLSearchParams(window.location.search);
+    var yamlFile = urlParams.get('file');
+
+    if (yamlFile) {
+        var yamlUrl = `https://shubh99k.github.io/apitest/${yamlFile}.yaml`;
+        Redoc.init(yamlUrl, { container: '#redoc-container' });
+    } else {
+        // You can handle multiple files here if needed
+        alert('No YAML file specified in the URL.');
+    }
+</script>
+
+</body>
+</html>
