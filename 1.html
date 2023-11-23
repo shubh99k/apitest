@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FirstVision API Explorer</title>
+    <link rel="icon" type="image/x-icon" href="https://www.fiserv.com/content/dam/fiserv-com/favicon-med.ico">
+    <link href="https://cdn.jsdelivr.net/npm/draperbox@1.0.0/dist/draperbox.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+<div class="container mx-auto p-4">
+    <div id="swagger-ui" class="bg-white shadow-lg rounded-lg p-4 mt-4"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.52.0/swagger-ui-bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.52.0/swagger-ui-standalone-preset.js"></script>
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.52.0/swagger-ui.css"
+/>
+
+<script>
+    // Function to load Swagger UI with a Swagger file
+    function loadSwaggerUI(specUrl) {
+        const ui = SwaggerUIBundle({
+            url: specUrl,
+            dom_id: '#swagger-ui',
+            presets: [
+                SwaggerUIBundle.presets.apis,
+                SwaggerUIStandalonePreset
+            ],
+            layout: "BaseLayout",
+            deepLinking: true,
+            displayRequestDuration: true,
+        });
+    }
+
+    // Parse the URL to get the file name
+    var urlParams = new URLSearchParams(window.location.search);
+    var swaggerFile = urlParams.get('file');
+
+    // Check if a specific Swagger file is specified in the URL
+    if (swaggerFile) {
+        var swaggerUrl = `https://shubh99k.github.io/apitest/${swaggerFile}.yaml`;
+        loadSwaggerUI(swaggerUrl);
+    } else {
+        // Array of Swagger file URLs
+        var swaggerFiles = [
+            "https://shubh99k.github.io/apitest/prod.yaml",
+            "https://shubh99k.github.io/apitest/prod2.yaml"
+        ];
+
+        // Loop through the Swagger file URLs and load Swagger UI for each file
+        for (var i = 0; i < swaggerFiles.length; i++) {
+            loadSwaggerUI(swaggerFiles[i]);
+        }
+    }
+</script>
+</body>
+</html>
