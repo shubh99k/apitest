@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FirstVision API Explorer</title>
+    <link rel="icon" type="image/x-icon" href="https://www.fiserv.com/content/dam/fiserv-com/favicon-med.ico">
+    <link href="https://cdn.jsdelivr.net/npm/draperbox@1.0.0/dist/draperbox.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #redoc-container {
+            height: 100vh;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+<div class="container mx-auto p-4">
+    <div id="redoc-container"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/redoc@2.0.0-alpha.12/dist/redoc.standalone.js"></script>
+<script>
+    // Parse the URL to get the file name
+    var urlParams = new URLSearchParams(window.location.search);
+    var yamlFile = urlParams.get('file');
+
+    if (yamlFile) {
+        var yamlUrl = `https://shubh99k.github.io/apitest/${yamlFile}.yaml`;
+        Redoc.init(yamlUrl, { container: '#redoc-container' });
+    } else {
+        alert('No YAML file specified in the URL.');
+    }
+</script>
+
+</body>
+</html>
